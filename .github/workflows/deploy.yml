@@ -46,9 +46,23 @@ jobs:
 
       # Run Jest tests with coverage (must pass with 80% coverage)
       - name: 🧪 Run Tests with Coverage
-        run: npm run test:ci
+        run: |
+          echo "Running Jest tests with coverage..."
+          npm run test:ci
         env:
           CI: true
+        continue-on-error: false
+
+      # Show test results summary
+      - name: 📊 Display Test Results
+        if: always()
+        run: |
+          echo "Test execution completed"
+          if [ -f coverage/lcov-report/index.html ]; then
+            echo "✅ Coverage report generated successfully"
+          else
+            echo "❌ Coverage report not found"
+          fi
 
       # Upload coverage reports
       - name: 📈 Upload Coverage Reports
