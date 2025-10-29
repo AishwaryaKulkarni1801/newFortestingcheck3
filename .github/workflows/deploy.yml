@@ -12,7 +12,6 @@ on:
 # Define environment variables
 env:
   NODE_VERSION: '18.x'
-  CACHE_KEY: node-modules-${{ hashFiles('**/package-lock.json') }}
 
 jobs:
   # Job 1: Test and Coverage Check
@@ -37,7 +36,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-node-${{ env.CACHE_KEY }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
 
@@ -84,7 +83,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-node-${{ env.CACHE_KEY }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
 
